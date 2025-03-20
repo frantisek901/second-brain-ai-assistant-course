@@ -24,6 +24,10 @@
 
 # Workshop on Building Advanced RAG Applications and Systems
 
+This is link to youTube video with code-along:  
+https://www.youtube.com/watch?v=n9sAjDRUwh8
+
+
 
 # 📑 Table of Contents
 
