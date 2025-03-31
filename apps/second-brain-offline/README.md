@@ -50,6 +50,14 @@ For all the modules, you'll need the following tools installed locally:
 | Git | ≥2.44.0 | Version control | [Download](https://git-scm.com/downloads) |
 | Docker | ≥27.4.0 | Containerization platform | [Download](https://www.docker.com/get-started/) |
 
+<details>
+<summary><b>📌 Windows users also need to install WSL (Click to expand)</b></summary>
+
+We will be using Unix commands across the course, so if you are using Windows, you will need to **install WSL**, which will install a Linux kernel on your Windows machine and allow you to use the Unix commands from our course (this is the recommended way to write software on Windows). 
+
+🔗 [Follow this guide to install WSL](https://www.youtube.com/watch?v=YByZ_sOOWsQ).
+</details>
+
 ## Cloud Services
 
 Also, the course requires access to these cloud services. The authentication to these services is done by adding the corresponding environment variables to the `.env` file:
@@ -95,7 +103,7 @@ uv venv .venv-offline
 uv pip install -e .
 ```
 
-We use [Crew4AI](https://github.com/unclecode/crawl4ai) for crawling. To finish setting it up you have to run some post-installation setup commands (more on why this is needed in their [docs](https://github.com/unclecode/crawl4ai)):
+We use [Crawl4AI](https://github.com/unclecode/crawl4ai) for crawling. To finish setting it up you have to run some post-installation setup commands (more on why this is needed in their [docs](https://github.com/unclecode/crawl4ai)):
 ```bash
 # Run post-installation setup
 uv pip install -U "crawl4ai==0.4.247" # We have to upgrade crawl4ai to support these CLI commands (we couldn't add it to pyproject.toml due to ZenML version incompatibility with Pydantic).
@@ -187,6 +195,8 @@ We recommend to read the [first lesson](https://decodingml.substack.com/p/build-
 
 ## Module 2: ETL pipeline
 
+Populate the MongoDB database with the Notion and crawled raw data (required for `Module 3` and `Module 5`).
+
 ### Prepare Notion data
 
 Download our prepared Notion dataset from S3 (recommended):
@@ -200,6 +210,9 @@ make download-notion-dataset
 make collect-notion-data-pipeline
 ```
 
+> [!IMPORTANT]
+> If running `make download-notion-dataset` fails, type `https://decodingml-public-data.s3.eu-central-1.amazonaws.com/second_brain_course/notion/notion.zip` in your browser to download the dataset manually. Unzip `notion.zip` and place it under the `data` directory as follows: `data/notion` (create the `data` directory if it doesn't exist).
+
 ### Run the ETL pipeline
 
 Run the ETL pipeline to crawl, score and ingest the Notion data into MongoDB:
@@ -210,14 +223,19 @@ Running criteria:
 - Running costs: ~$0.5
 - Running time: ~30 minutes
 
-**OR** if you want to avoid any costs or waiting times, you can use our pre-computed dataset to populate MongoDB. Also, as crawling can often fail, you can use this command to skip the crawling step (the outcome will be the same as using `make etl-pipeline`):
+**OR** if you want to avoid any costs or waiting times, you can use our pre-computed dataset to populate MongoDB. Also, as crawling can often fail and it is more compute-heavy, you can use this command to skip the crawling step (the outcome will be the same as using `make etl-pipeline`):
 ```bash
 make download-crawled-dataset
 # Validate using test: make test-download-crawled-dataset
 make etl-precomputed-pipeline
 ```
 
+> [!IMPORTANT]
+> If running `make download-crawled-dataset` fails, type `https://decodingml-public-data.s3.eu-central-1.amazonaws.com/second_brain_course/crawled/crawled.zip` in your browser to download the dataset manually. Unzip `crawled.zip` and place it under the `data` directory as follows: `data/crawled` (create the `data` directory if it doesn't exist).
+
 ## Module 3: Generate Fine-tuning Dataset
+
+**NOTE:** To run this module, you must populate MongoDB with raw data as described in [Module 2](#module-2-etl-pipeline).
 
 ```bash
 make generate-dataset-pipeline
@@ -288,6 +306,8 @@ The main facts of the Eiffel Tower from the text are as follows :
 ```
 
 ## Module 5: RAG Feature Pipeline - Populate the RAG Vector Database
+
+**NOTE:** To run this module, you must populate MongoDB with raw data as described in [Module 2](#module-2-etl-pipeline).
 
 We support multiple RAG ingestion methods using either OpenAI or your deployed Hugging Face models, with parent or contextual retrieval algorithms.
 

@@ -24,9 +24,9 @@
 
 # 🚀 Installation and Usage Guide for the Second Brain Online Module
 
-This guide will help you set up and run the Second Brain Online Module which contains the code for **Module 6: the RAG agentic app and LLMOps layer**.
+This guide will help you set up and run the Second Brain Online Module, which contains the code for **Module 6: the RAG agentic app and LLMOps layer**.
 
-Note that this module is completely independent from the offline ML pipelines. Thus, it comes with its own set of dependencies and requirements. Also, it is required to have the offline ML pipelines running in order to use this module.
+Note that this module is entirely independent of the offline ML pipelines. Thus, it comes with its own set of dependencies and requirements. Also, to run this module, you must first go through the steps from the [Offline ML Pipelines](../second-brain-offline) part of the course, which will populate the vector database and other required resources.
 
 # 📑 Table of Contents
 
@@ -52,6 +52,14 @@ For all the modules, you'll need the following tools installed locally:
 | GNU Make | ≥ 3.81 | Build automation tool | [Download](https://www.gnu.org/software/make/) |
 | Git | ≥2.44.0 | Version control | [Download](https://git-scm.com/downloads) |
 | Docker | ≥27.4.0 | Containerization platform | [Download](https://www.docker.com/get-started/) |
+
+<details>
+<summary><b>📌 Windows users also need to install WSL (Click to expand)</b></summary>
+
+We will be using Unix commands across the course, so if you are using Windows, you will need to **install WSL**, which will install a Linux kernel on your Windows machine and allow you to use the Unix commands from our course (this is the recommended way to write software on Windows). 
+
+🔗 [Follow this guide to install WSL](https://www.youtube.com/watch?v=YByZ_sOOWsQ).
+</details>
 
 ## Cloud Services
 
@@ -151,6 +159,8 @@ make local-infrastructure-down
 ![mongodb_atlas_example.png](../../static/mongodb_atlas_example.png)
 
 # ⚡️ Running the Code for Each Module
+
+**NOTE:** To run these modules, you must first go through the steps from the [Offline ML Pipelines](../second-brain-offline) part of the course.
 
 To simulate the course modules, we split the CLI commands and offline ML pipelines you must run per module so you know exactly where you are in the course.
 
